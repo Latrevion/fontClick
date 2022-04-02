@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>点击生成文字</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100vh;
+      /*设置背景色*/
+      background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+    }
+
+
+    h1 {
+      text-align: center;
+      /*border: 1px solid red;*/
+      color: #fff;
+      /*让文字不被选中*/
+      user-select: none;
+    }
+
+    span {
+      user-select: none;
+      cursor: default;
+      color: #fff;
+      position: absolute;
+      transition: .1s;
+    }
+  </style>
+</head>
+<body>
+<h1>点击页面 出现文字</h1>
+<script>
+  let fontArr = ["富强", "民主", "和谐", "爱国", "上进", "尊老", "爱幼"]
+
+
+  let click = function (x) {
+    //创建元素
+    let span = document.createElement("span")
+    // 获取鼠标的坐标
+    span.style.left = x.clientX + "px"
+
+    span.style.top = x.clientY + "px"
+
+    //随机获取数组一个值
+    span.innerHTML = fontArr[Math.floor(Math.random() * fontArr.length)]
+
+    setTimeout(
+      function () {
+        span.style.opacity = "1"
+        span.style.transform = "translateY(-100px)"
+      }, 200
+    )
+    setTimeout(
+      function () {
+        span.style.opacity = "0"
+        span.style.transform = "translateY(-200px)"
+
+      }, 1000
+    )
+
+    // 当透明度为0，清理span
+    let clearSpan = document.getElementsByTagName("span")
+    for (let i = 0; i < clearSpan.length; i++) {
+      if (clearSpan[i].style.opacity === "0") {
+
+        document.body.removeChild(clearSpan[i])
+
+      }
+    }
+
+    document.body.appendChild(span)
+  }
+
+  document.onclick = click
+
+
+</script>
+</body>
+</html>
